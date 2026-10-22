@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hamburguesa con queso, bacon y ketchup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ketchup: #d62828;
+    --mostaza: #ffc22e;
+    --pan: #b5651d;
+    --lechuga: #3f9b3f;
+    --cielo: #e3f3fb;
+    --tinta: #2b2118;
+    --blanco: #ffffff;
+    --titulos: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+    --texto: "Nunito", "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--cielo);
+    color: var(--tinta);
+    font-family: var(--texto);
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  :focus-visible { outline: 4px solid var(--ketchup); outline-offset: 3px; }
+
+  /* ---------- Cabecera ---------- */
+  header {
+    background: var(--mostaza);
+    border-bottom: 6px solid var(--tinta);
+    padding: 2rem 1.25rem 2.5rem;
+    text-align: center;
+  }
+  header h1 {
+    font-family: var(--titulos);
+    font-weight: 700;
+    font-size: clamp(2rem, 6vw, 3.6rem);
+    line-height: 1.1;
+    margin: 0 auto .5rem;
+    max-width: 18ch;
+  }
+  header p { margin: 0; font-weight: 700; font-size: 1.2rem; }
+  .portada {
+    margin: 1.75rem auto 0;
+    max-width: 520px;
+  }
+
+  /* ---------- Estructura ---------- */
+  .pagina {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+    align-items: start;
+  }
+  @media (max-width: 820px) {
+    .pagina { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Ingredientes ---------- */
+  .ingredientes {
+    background: var(--blanco);
+    border: 4px solid var(--tinta);
+    border-radius: 24px;
+    padding: 1.25rem 1.25rem 1.5rem;
+    box-shadow: 6px 6px 0 var(--tinta);
+    position: sticky;
+    top: 1rem;
+  }
+  @media (max-width: 820px) { .ingredientes { position: static; } }
+  .ingredientes h2 {
+    font-family: var(--titulos);
+    font-size: 1.7rem;
+    margin: 0 0 .25rem;
+  }
+  .ingredientes .ayuda { margin: 0 0 1rem; font-size: .95rem; }
+  .ingredientes ul { list-style: none; margin: 0; padding: 0; }
+  .ingredientes li + li { margin-top: .4rem; }
+  .ingredientes label {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    padding: .45rem .6rem;
+    border-radius: 14px;
+    cursor: pointer;
+  }
+  .ingredientes label:hover { background: var(--cielo); }
+  .ingredientes input {
+    appearance: none;
+    flex: none;
+    width: 1.6rem; height: 1.6rem;
+    border: 3px solid var(--tinta);
+    border-radius: 8px;
+    background: var(--blanco);
+    display: grid; place-content: center;
+    cursor: pointer;
+  }
+  .ingredientes input:checked { background: var(--lechuga); }
+  .ingredientes input:checked::after { content: "✔"; color: #fff; font-size: 1rem; line-height: 1; }
+  .ingredientes input:checked + .ing-texto { text-decoration: line-through; opacity: .6; }
+  .emoji { font-size: 1.6rem; flex: none; }
+  .cantidad { display: block; font-size: .9rem; opacity: .75; }
+
+  /* ---------- Pasos ---------- */
+  .pasos { display: grid; gap: 2rem; }
+  .paso {
+    background: var(--blanco);
+    border: 4px solid var(--tinta);
+    border-radius: 24px;
+    padding: 1.5rem;
+    box-shadow: 6px 6px 0 var(--ketchup);
+  }
+  .paso-cabecera { display: flex; align-items: center; gap: 1rem; margin-bottom: .75rem; }
+  .numero {
+    flex: none;
+    width: 3.4rem; height: 3.4rem;
+    border-radius: 50%;
+    background: var(--ketchup);
+    color: #fff;
+    border: 4px solid var(--tinta);
+    display: grid; place-content: center;
+    font-family: var(--titulos);
+    font-weight: 700;
+    font-size: 1.8rem;
+  }
+  .paso h3 {
+    font-family: var(--titulos);
+    font-size: 1.6rem;
+    line-height: 1.2;
+    margin: 0;
+  }
+  .paso .texto { margin: 0 0 1.25rem; max-width: 60ch; }
+
+  .fotos { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+  .foto {
+    margin: 0;
+    flex: 1 1 240px;
+    max-width: 420px;
+    background: var(--blanco);
+    border: 3px solid var(--tinta);
+    border-radius: 14px;
+    padding: .5rem .5rem 0;
+    box-shadow: 3px 3px 0 var(--tinta);
+    transform: rotate(-1.2deg);
+  }
+  .foto:nth-child(even) { transform: rotate(1.2deg); }
+  .foto img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  .foto figcaption { padding: .45rem .25rem .55rem; font-size: .95rem; text-align: center; }
+  .foto.falta .hueco {
+    aspect-ratio: 4 / 3;
+    border: 3px dashed var(--pan);
+    border-radius: 8px;
+    background: var(--cielo);
+    display: grid; place-content: center;
+    text-align: center;
+    padding: .75rem;
+    font-size: .95rem;
+  }
+  .foto.falta .hueco span { display: block; font-size: 2.6rem; }
+
+  footer { text-align: center; padding: 0 1rem 2.5rem; font-weight: 700; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="titulo"></h1>
+  <p id="autor"></p>
+  <div class="portada" id="portada"></div>
+</header>
+
+<main class="pagina">
+  <aside class="ingredientes" aria-labelledby="ing-titulo">
+    <h2 id="ing-titulo">Ingredientes</h2>
+    <p class="ayuda" id="ing-ayuda"></p>
+    <ul id="lista-ingredientes"></ul>
+  </aside>
+
+  <section class="pasos" id="pasos" aria-label="Pasos de la receta"></section>
+</main>
+
+<footer id="pie"></footer>
+
+<script>
+/* =====================================================================
+   ZONA PARA EDITAR
+   Cambia solo los textos que hay entre comillas.
+   Las fotos se guardan en la carpeta "images" del repositorio.
+   Para poner varias fotos en un paso, añade más nombres a "fotos".
+   ===================================================================== */
+const RECETA = {
+  titulo: "Hamburguesa con queso, bacon y ketchup",
+  autor: "Receta explicada por Xian, de 2ºB",
+  portada: { foto: "portada.jpeg", descripcion: "Nuestra hamburguesa terminada" },
+
+  ingredientesAyuda: "Ingredientes para 2 hamburguesas. Marca cada uno cuando lo tengas.",
+  ingredientes: [
+    { emoji: "🥩", nombre: "Carne picada de ternera", cantidad: "250 gramos" },
+    { emoji: "🍞", nombre: "Panes de hamburguesa",    cantidad: "2 panes" },
+    { emoji: "🧀", nombre: "Queso en lonchas",        cantidad: "2 lonchas" },
+    { emoji: "🥓", nombre: "Bacon",                   cantidad: "4 lonchas" },
+    { emoji: "🍅", nombre: "Ketchup",                 cantidad: "Al gusto" },
+    { emoji: "🧂", nombre: "Sal",                     cantidad: "Una pizca" },
+    { emoji: "🫒", nombre: "Aceite de oliva",         cantidad: "Un chorrito" }
+  ],
+
+  pasos: [
+    {
+      titulo: "Haz las bolas de carne",
+      texto: "Mezcla carne picada con leche, huevos, ajo y sal.",
+      fotos: [ { src: "paso2.jpeg", descripcion: "Las tortitas de carne" } ]
+    },
+    {
+      titulo: "Cocina la hamburguesa con el queso",
+      texto: "Este paso lo haces con un adulto. Frie la carne y añade queso para que se derrita.",
+      fotos: [ { src: "paso3.jpeg", descripcion: "El queso derritiéndose" } ]
+    },
+    {
+      titulo: "Monta tu hamburguesa",
+      texto: "Coloca el pan, ketchup, hamburguesa, bacon, queso y otro pan",
+      fotos: [ { src: "paso4.jpeg", descripcion: "La hamburguesa montada" } ]
+    },
+    {
+      titulo: "¡¡¡A Comer!!!",
+      fotos: [ { src: "paso5.jpeg", descripcion: "La hamburguesa montada" } ]
+    }
+  ],
+
+  pie: "¡Que aproveche! 🍔"
+};
+/* ================== FIN DE LA ZONA PARA EDITAR ================== */
+
+
+/* ---------- Código que construye la página (no hace falta tocarlo) ---------- */
+function el(tag, clase, texto) {
+  const e = document.createElement(tag);
+  if (clase) e.className = clase;
+  if (texto !== undefined) e.textContent = texto;
+  return e;
+}
+
+function crearFoto(foto) {
+  const fig = el("figure", "foto");
+  const img = el("img");
+  img.src = foto.src;
+  img.alt = foto.descripcion || "";
+  img.loading = "lazy";
+  img.addEventListener("error", () => {
+    img.remove();
+    fig.classList.add("falta");
+    const hueco = el("div", "hueco");
+    hueco.append(el("span", "", "📷"), "Aquí irá la foto: " + foto.src);
+    fig.prepend(hueco);
+  });
+  fig.append(img);
+  if (foto.descripcion) fig.append(el("figcaption", "", foto.descripcion));
+  return fig;
+}
+
+document.getElementById("titulo").textContent = RECETA.titulo;
+document.title = RECETA.titulo;
+document.getElementById("autor").textContent = RECETA.autor;
+document.getElementById("pie").textContent = RECETA.pie;
+document.getElementById("ing-ayuda").textContent = RECETA.ingredientesAyuda;
+
+if (RECETA.portada) {
+  document.getElementById("portada").append(crearFoto(RECETA.portada));
+}
+
+const lista = document.getElementById("lista-ingredientes");
+RECETA.ingredientes.forEach((ing, i) => {
+  const li = el("li");
+  const label = el("label");
+  const check = el("input");
+  check.type = "checkbox";
+  check.id = "ing-" + i;
+  const texto = el("span", "ing-texto");
+  texto.append(ing.nombre, el("span", "cantidad", ing.cantidad));
+  label.append(check, el("span", "emoji", ing.emoji), texto);
+  li.append(label);
+  lista.append(li);
+});
+
+const contPasos = document.getElementById("pasos");
+RECETA.pasos.forEach((p, i) => {
+  const art = el("article", "paso");
+  const cab = el("div", "paso-cabecera");
+  cab.append(el("div", "numero", String(i + 1)), el("h3", "", p.titulo));
+  const fotos = el("div", "fotos");
+  p.fotos.forEach(f => fotos.append(crearFoto(f)));
+  art.append(cab, el("p", "texto", p.texto), fotos);
+  contPasos.append(art);
+});
+</script>
+</body>
+</html>
