@@ -203,14 +203,12 @@
 <script>
 /* =====================================================================
    ZONA PARA EDITAR
-   Cambia solo los textos que hay entre comillas.
-   Las fotos se guardan en la carpeta "images" del repositorio.
    Para poner varias fotos en un paso, añade más nombres a "fotos".
    ===================================================================== */
 const RECETA = {
   titulo: "Hamburguesa con queso, bacon y ketchup",
   autor: "Receta explicada por Xian, de 2ºB",
-  portada: { foto: "portada.jpeg", descripcion: "Nuestra hamburguesa terminada" },
+  portada: [ { src: "portada.jpeg", descripcion: "Nuestra hamburguesa terminada" } ]
 
   ingredientesAyuda: "Ingredientes para 2 hamburguesas. Marca cada uno cuando lo tengas.",
   ingredientes: [
@@ -232,7 +230,7 @@ const RECETA = {
     {
       titulo: "Cocina la hamburguesa con el queso",
       texto: "Este paso lo haces con un adulto. Frie la carne y añade queso para que se derrita.",
-      fotos: [ { src: "paso3.jpeg", descripcion: "El queso derritiéndose" } ]
+      fotos: [ { src: "paso3.jpeg", descripcion: "Friendo la hamburguesa" } ]
     },
     {
       titulo: "Monta tu hamburguesa",
@@ -241,7 +239,7 @@ const RECETA = {
     },
     {
       titulo: "¡¡¡A Comer!!!",
-      fotos: [ { src: "paso5.jpeg", descripcion: "La hamburguesa montada" } ]
+      fotos: [ { src: "paso5.jpeg" } ]
     }
   ],
 
@@ -250,7 +248,7 @@ const RECETA = {
 /* ================== FIN DE LA ZONA PARA EDITAR ================== */
 
 
-/* ---------- Código que construye la página (no hace falta tocarlo) ---------- */
+/* ---------- Web code  ---------- */
 function el(tag, clase, texto) {
   const e = document.createElement(tag);
   if (clase) e.className = clase;
